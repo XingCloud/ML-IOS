@@ -8,9 +8,8 @@ ML IOS SDK可以帮你轻松地完成应用国际化
 
 在项目中加入
 
-ML.h
-
-libML.a
+    ML.h
+    libML.a
 
 使用说明
 --------
