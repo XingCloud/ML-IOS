@@ -1,0 +1,304 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		6D4C2CFD14FB713F00806E60 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D4C2CFC14FB713F00806E60 /* libxml2.dylib */; };
+		6D6CABAD14F762EF00284C64 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D6CABAC14F762EF00284C64 /* Foundation.framework */; };
+		6D6CABB314F762EF00284C64 /* ML.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D6CABB214F762EF00284C64 /* ML.m */; };
+		6D6CAC0F14F78D7700284C64 /* libsbjson-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D6CAC0514F78D7700284C64 /* libsbjson-ios.a */; };
+		6D6CAC1014F78D7700284C64 /* NSObject+SBJson.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D6CAC0614F78D7700284C64 /* NSObject+SBJson.h */; };
+		6D6CAC1114F78D7700284C64 /* SBJson.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D6CAC0714F78D7700284C64 /* SBJson.h */; };
+		6D6CAC1214F78D7700284C64 /* SBJsonParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D6CAC0814F78D7700284C64 /* SBJsonParser.h */; };
+		6D6CAC1314F78D7700284C64 /* SBJsonStreamParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D6CAC0914F78D7700284C64 /* SBJsonStreamParser.h */; };
+		6D6CAC1414F78D7700284C64 /* SBJsonStreamParserAccumulator.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D6CAC0A14F78D7700284C64 /* SBJsonStreamParserAccumulator.h */; };
+		6D6CAC1514F78D7700284C64 /* SBJsonStreamParserAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D6CAC0B14F78D7700284C64 /* SBJsonStreamParserAdapter.h */; };
+		6D6CAC1614F78D7700284C64 /* SBJsonStreamWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D6CAC0C14F78D7700284C64 /* SBJsonStreamWriter.h */; };
+		6D6CAC1714F78D7700284C64 /* SBJsonStreamWriterAccumulator.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D6CAC0D14F78D7700284C64 /* SBJsonStreamWriterAccumulator.h */; };
+		6D6CAC1814F78D7700284C64 /* SBJsonWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D6CAC0E14F78D7700284C64 /* SBJsonWriter.h */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		6D38EB6214FC6C0C0055DADB /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		6D38EB6414FC6C160055DADB /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		6D38EB6614FC6C220055DADB /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		6D38EB6814FC6C2E0055DADB /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		6D38EB6A14FC6C520055DADB /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		6D4C2CFC14FB713F00806E60 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
+		6D6CABA914F762EF00284C64 /* libML.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libML.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		6D6CABAC14F762EF00284C64 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		6D6CABB014F762EF00284C64 /* ML-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ML-Prefix.pch"; sourceTree = "<group>"; };
+		6D6CABB114F762EF00284C64 /* ML.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ML.h; sourceTree = "<group>"; };
+		6D6CABB214F762EF00284C64 /* ML.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ML.m; sourceTree = "<group>"; };
+		6D6CAC0514F78D7700284C64 /* libsbjson-ios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libsbjson-ios.a"; sourceTree = "<group>"; };
+		6D6CAC0614F78D7700284C64 /* NSObject+SBJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJson.h"; sourceTree = "<group>"; };
+		6D6CAC0714F78D7700284C64 /* SBJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJson.h; sourceTree = "<group>"; };
+		6D6CAC0814F78D7700284C64 /* SBJsonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonParser.h; sourceTree = "<group>"; };
+		6D6CAC0914F78D7700284C64 /* SBJsonStreamParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamParser.h; sourceTree = "<group>"; };
+		6D6CAC0A14F78D7700284C64 /* SBJsonStreamParserAccumulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamParserAccumulator.h; sourceTree = "<group>"; };
+		6D6CAC0B14F78D7700284C64 /* SBJsonStreamParserAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamParserAdapter.h; sourceTree = "<group>"; };
+		6D6CAC0C14F78D7700284C64 /* SBJsonStreamWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamWriter.h; sourceTree = "<group>"; };
+		6D6CAC0D14F78D7700284C64 /* SBJsonStreamWriterAccumulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamWriterAccumulator.h; sourceTree = "<group>"; };
+		6D6CAC0E14F78D7700284C64 /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		6D6CABA614F762EF00284C64 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6D4C2CFD14FB713F00806E60 /* libxml2.dylib in Frameworks */,
+				6D6CABAD14F762EF00284C64 /* Foundation.framework in Frameworks */,
+				6D6CAC0F14F78D7700284C64 /* libsbjson-ios.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		6D6CAB9E14F762EF00284C64 = {
+			isa = PBXGroup;
+			children = (
+				6D6CABAE14F762EF00284C64 /* ML */,
+				6D6CABAB14F762EF00284C64 /* Frameworks */,
+				6D6CABAA14F762EF00284C64 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		6D6CABAA14F762EF00284C64 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6D6CABA914F762EF00284C64 /* libML.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		6D6CABAB14F762EF00284C64 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6D38EB6A14FC6C520055DADB /* libz.dylib */,
+				6D4C2CFC14FB713F00806E60 /* libxml2.dylib */,
+				6D38EB6814FC6C2E0055DADB /* CoreGraphics.framework */,
+				6D38EB6614FC6C220055DADB /* MobileCoreServices.framework */,
+				6D38EB6414FC6C160055DADB /* SystemConfiguration.framework */,
+				6D38EB6214FC6C0C0055DADB /* CFNetwork.framework */,
+				6D6CABAC14F762EF00284C64 /* Foundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		6D6CABAE14F762EF00284C64 /* ML */ = {
+			isa = PBXGroup;
+			children = (
+				6D6CABB114F762EF00284C64 /* ML.h */,
+				6D6CABB214F762EF00284C64 /* ML.m */,
+				6D6CAC0314F78D3F00284C64 /* SBJson */,
+				6D6CABAF14F762EF00284C64 /* Supporting Files */,
+			);
+			path = ML;
+			sourceTree = "<group>";
+		};
+		6D6CABAF14F762EF00284C64 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				6D6CABB014F762EF00284C64 /* ML-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		6D6CAC0314F78D3F00284C64 /* SBJson */ = {
+			isa = PBXGroup;
+			children = (
+				6D6CAC0514F78D7700284C64 /* libsbjson-ios.a */,
+				6D6CAC0614F78D7700284C64 /* NSObject+SBJson.h */,
+				6D6CAC0714F78D7700284C64 /* SBJson.h */,
+				6D6CAC0814F78D7700284C64 /* SBJsonParser.h */,
+				6D6CAC0914F78D7700284C64 /* SBJsonStreamParser.h */,
+				6D6CAC0A14F78D7700284C64 /* SBJsonStreamParserAccumulator.h */,
+				6D6CAC0B14F78D7700284C64 /* SBJsonStreamParserAdapter.h */,
+				6D6CAC0C14F78D7700284C64 /* SBJsonStreamWriter.h */,
+				6D6CAC0D14F78D7700284C64 /* SBJsonStreamWriterAccumulator.h */,
+				6D6CAC0E14F78D7700284C64 /* SBJsonWriter.h */,
+			);
+			name = SBJson;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		6D6CABA714F762EF00284C64 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6D6CAC1014F78D7700284C64 /* NSObject+SBJson.h in Headers */,
+				6D6CAC1114F78D7700284C64 /* SBJson.h in Headers */,
+				6D6CAC1214F78D7700284C64 /* SBJsonParser.h in Headers */,
+				6D6CAC1314F78D7700284C64 /* SBJsonStreamParser.h in Headers */,
+				6D6CAC1414F78D7700284C64 /* SBJsonStreamParserAccumulator.h in Headers */,
+				6D6CAC1514F78D7700284C64 /* SBJsonStreamParserAdapter.h in Headers */,
+				6D6CAC1614F78D7700284C64 /* SBJsonStreamWriter.h in Headers */,
+				6D6CAC1714F78D7700284C64 /* SBJsonStreamWriterAccumulator.h in Headers */,
+				6D6CAC1814F78D7700284C64 /* SBJsonWriter.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		6D6CABA814F762EF00284C64 /* ML */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6D6CABB614F762EF00284C64 /* Build configuration list for PBXNativeTarget "ML" */;
+			buildPhases = (
+				6D6CABA514F762EF00284C64 /* Sources */,
+				6D6CABA614F762EF00284C64 /* Frameworks */,
+				6D6CABA714F762EF00284C64 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ML;
+			productName = ML;
+			productReference = 6D6CABA914F762EF00284C64 /* libML.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		6D6CABA014F762EF00284C64 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0430;
+			};
+			buildConfigurationList = 6D6CABA314F762EF00284C64 /* Build configuration list for PBXProject "ML" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 6D6CAB9E14F762EF00284C64;
+			productRefGroup = 6D6CABAA14F762EF00284C64 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				6D6CABA814F762EF00284C64 /* ML */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		6D6CABA514F762EF00284C64 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6D6CABB314F762EF00284C64 /* ML.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		6D6CABB414F762EF00284C64 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "${SDKROOT}/usr/include/libxml2";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		6D6CABB514F762EF00284C64 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "${SDKROOT}/usr/include/libxml2";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		6D6CABB714F762EF00284C64 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/ML.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ML/ML-Prefix.pch";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/ML\"",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		6D6CABB814F762EF00284C64 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/ML.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ML/ML-Prefix.pch";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/ML\"",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		6D6CABA314F762EF00284C64 /* Build configuration list for PBXProject "ML" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6D6CABB414F762EF00284C64 /* Debug */,
+				6D6CABB514F762EF00284C64 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6D6CABB614F762EF00284C64 /* Build configuration list for PBXNativeTarget "ML" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6D6CABB714F762EF00284C64 /* Debug */,
+				6D6CABB814F762EF00284C64 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 6D6CABA014F762EF00284C64 /* Project object */;
+}
