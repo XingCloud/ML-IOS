@@ -17,7 +17,7 @@
       apiKey:(NSString *)apiKey 
   sourceLang:(NSString *)sourceLang 
   targetLang:(NSString *)targetLang 
-autoDownloadFile:(NSString *)autoDownloadFile
+autoUpdateFile:(NSString *)autoUpdateFile
 autoAddString:(NSString *)autoAddString;
 
 + (NSString *)trans:(NSString *)source;

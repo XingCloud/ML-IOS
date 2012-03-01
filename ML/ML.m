@@ -196,7 +196,7 @@ static NSString * genTimeStamp()
       apiKey:(NSString *)apiKey
   sourceLang:(NSString *)sourceLang
   targetLang:(NSString *)targetLang
-autoDownloadFile:(NSString *)autoDownloadFile
+autoUpdateFile:(NSString *)autoUpdateFile
 autoAddString:(NSString *)autoAddString;
 {
     ///////////////////////////////////////////////////////////////////////////////
@@ -218,7 +218,7 @@ autoAddString:(NSString *)autoAddString;
         [internal setObject:apiKey forKey:@"apiKey"];
         [internal setObject:sourceLang forKey:@"sourceLang"];
         [internal setObject:targetLang forKey:@"targetLang"];
-        [internal setObject:autoDownloadFile forKey:@"autoDownloadFile"];
+        [internal setObject:autoUpdateFile forKey:@"autoUpdateFile"];
         [internal setObject:autoAddString forKey:@"autoAddString"];
         //[internal setObject:@"i.xingcloud.com" forKey:@"serverAddr"];
         [internal setObject:@"10.1.4.199:2012" forKey:@"serverAddr"];
@@ -239,7 +239,7 @@ autoAddString:(NSString *)autoAddString;
         NSData *fileData = [[[NSData alloc] initWithContentsOfFile:fileName] autorelease];
         ///////////////////////////////////////////////////////////////////////////////
         
-        if ([autoDownloadFile isEqualToString:@"ON"])
+        if ([autoUpdateFile isEqualToString:@"ON"])
         {
             ///////////////////////////////////////////////////////////////////////////////
             // 获取服务器端的文件信息
