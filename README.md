@@ -14,7 +14,7 @@ ML IOS SDK可以帮你轻松地完成应用国际化
 使用说明
 --------
 
-### init
+### 1. init
 
 在AppDelegate.m或其View中使用init初始化SDK
 
@@ -53,7 +53,7 @@ ML IOS SDK可以帮你轻松地完成应用国际化
 		return YES;
 	}
 
-### TRANS
+### 2. TRANS
 
 使用TRANS对字符串进行国际化
 
