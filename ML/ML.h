@@ -14,9 +14,11 @@
 }
 
 + (void)init:(NSString *)serviceName 
-      apiKey:(NSString *)apiKey
-  sourceLang:(NSString *)sourceLang
-  targetLang:(NSString *)targetLang;
+      apiKey:(NSString *)apiKey 
+  sourceLang:(NSString *)sourceLang 
+  targetLang:(NSString *)targetLang 
+autoDownloadFile:(NSString *)autoDownloadFile
+autoAddString:(NSString *)autoAddString;
 
 + (NSString *)trans:(NSString *)source;
 

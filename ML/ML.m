@@ -196,6 +196,8 @@ static NSString * genTimeStamp()
       apiKey:(NSString *)apiKey
   sourceLang:(NSString *)sourceLang
   targetLang:(NSString *)targetLang
+autoDownloadFile:(NSString *)autoDownloadFile
+autoAddString:(NSString *)autoAddString;
 {
     ///////////////////////////////////////////////////////////////////////////////
     // 构建数据
@@ -216,9 +218,10 @@ static NSString * genTimeStamp()
         [internal setObject:apiKey forKey:@"apiKey"];
         [internal setObject:sourceLang forKey:@"sourceLang"];
         [internal setObject:targetLang forKey:@"targetLang"];
-        [internal setObject:@"i.xingcloud.com" forKey:@"serverAddr"];
-        //[internal setObject:@"10.1.4.199:2012" forKey:@"serverAddr"];
-        [internal setObject:@"disable" forKey:@"stringAdd"];
+        [internal setObject:autoDownloadFile forKey:@"autoDownloadFile"];
+        [internal setObject:autoAddString forKey:@"autoAddString"];
+        //[internal setObject:@"i.xingcloud.com" forKey:@"serverAddr"];
+        [internal setObject:@"10.1.4.199:2012" forKey:@"serverAddr"];
         NSMutableDictionary *stringHash = [[NSMutableDictionary alloc] init];
         [internal setObject:stringHash forKey:@"stringHash"];
         [stringHash release];
@@ -229,67 +232,73 @@ static NSString * genTimeStamp()
         NSString *cacheFileName = [NSString stringWithFormat:@"xc_words_%@.xml", targetLang];
         
         ///////////////////////////////////////////////////////////////////////////////
-        // 获取服务器端的文件信息
-        NSString *urlString = [NSString stringWithFormat:@"http://%@/api/v1/file/info", 
-                               [internal objectForKey:@"serverAddr"]];
-        NSString *timeStamp = genTimeStamp();
-        NSString *hash = genMD5([[timeStamp stringByAppendingString:apiKey] UTF8String]);
-        NSString *bodyString = [NSString stringWithFormat:@"service_name=%@&lang=%@&file_path=%@&timestamp=%@&hash=%@",
-                                serviceName, targetLang, defaultFileName, timeStamp, hash];
-        NSMutableURLRequest *postRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString]];
-        [postRequest setHTTPBody:[bodyString dataUsingEncoding:NSUTF8StringEncoding]];
-        [postRequest setHTTPMethod:@"POST"];
-        
-        NSData *resultData;
-        NSURLResponse *response;
-        resultData = [NSURLConnection sendSynchronousRequest:postRequest 
-                                                   returningResponse:&response 
-                                                               error:&error];
-        
-        NSString *requestAddress = nil;
-        NSString *md5 = nil;
-        if (resultData != nil)
-        {
-            NSString *fileInfoString = [[NSString alloc] initWithData:resultData encoding:NSUTF8StringEncoding];
-            SBJsonParser *parser = [[SBJsonParser alloc] init]; 
-            NSDictionary *fileInfo = [parser objectWithString:fileInfoString error:&error];
-            requestAddress = [[fileInfo objectForKey:@"data"] objectForKey:@"request_address"];
-            md5 = [[fileInfo objectForKey:@"data"] objectForKey:@"md5"];
-        }
-        ///////////////////////////////////////////////////////////////////////////////
-        
-        ///////////////////////////////////////////////////////////////////////////////
-        // 判断文件是否存在或是否发生变化
+        // 读取本地文件
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         NSString *documentsDirectory = [paths objectAtIndex:0];
         NSString *fileName = [documentsDirectory stringByAppendingPathComponent:cacheFileName];
-        
         NSData *fileData = [[[NSData alloc] initWithContentsOfFile:fileName] autorelease];
-        if (fileData != nil)
-        {
-            NSString *nowMD5 = genMD5((const char *)[fileData bytes]);
-            
-            if (md5 != nil && ![nowMD5 isEqualToString:md5]) 
-            {
-                fileData = nil;
-            }
-        }
         ///////////////////////////////////////////////////////////////////////////////
         
-        ///////////////////////////////////////////////////////////////////////////////
-        // 下载文件
-        if (fileData == nil && [requestAddress length] != 0)
+        if ([autoDownloadFile isEqualToString:@"ON"])
         {
-            NSURL *url = [NSURL URLWithString:[[NSString alloc] initWithFormat:requestAddress]];
-            NSURLRequest *getRequest = [NSURLRequest requestWithURL:url
-                                                     cachePolicy:NSURLRequestUseProtocolCachePolicy
-                                                 timeoutInterval:10.0]; 
-            fileData = [NSURLConnection sendSynchronousRequest:getRequest 
-                                               returningResponse:nil
-                                                           error:&error];
-            [fileData writeToFile:fileName atomically:YES];
+            ///////////////////////////////////////////////////////////////////////////////
+            // 获取服务器端的文件信息
+            NSString *urlString = [NSString stringWithFormat:@"http://%@/api/v1/file/info", 
+                                   [internal objectForKey:@"serverAddr"]];
+            NSString *timeStamp = genTimeStamp();
+            NSString *hash = genMD5([[timeStamp stringByAppendingString:apiKey] UTF8String]);
+            NSString *bodyString = [NSString stringWithFormat:@"service_name=%@&lang=%@&file_path=%@&timestamp=%@&hash=%@",
+                                    serviceName, targetLang, defaultFileName, timeStamp, hash];
+            NSMutableURLRequest *postRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString]];
+            [postRequest setHTTPBody:[bodyString dataUsingEncoding:NSUTF8StringEncoding]];
+            [postRequest setHTTPMethod:@"POST"];
+            
+            NSData *resultData;
+            NSURLResponse *response;
+            resultData = [NSURLConnection sendSynchronousRequest:postRequest 
+                                                       returningResponse:&response 
+                                                                   error:&error];
+            
+            NSString *requestAddress = nil;
+            NSString *md5 = nil;
+            if (resultData != nil)
+            {
+                NSString *fileInfoString = [[NSString alloc] initWithData:resultData encoding:NSUTF8StringEncoding];
+                SBJsonParser *parser = [[SBJsonParser alloc] init]; 
+                NSDictionary *fileInfo = [parser objectWithString:fileInfoString error:&error];
+                requestAddress = [[fileInfo objectForKey:@"data"] objectForKey:@"request_address"];
+                md5 = [[fileInfo objectForKey:@"data"] objectForKey:@"md5"];
+            }
+            ///////////////////////////////////////////////////////////////////////////////
+            
+            ///////////////////////////////////////////////////////////////////////////////
+            // 判断文件是否存在或是否发生变化
+            if (fileData != nil)
+            {
+                NSString *nowMD5 = genMD5((const char *)[fileData bytes]);
+                
+                if (md5 != nil && ![nowMD5 isEqualToString:md5]) 
+                {
+                    fileData = nil;
+                }
+            }
+            ///////////////////////////////////////////////////////////////////////////////
+            
+            ///////////////////////////////////////////////////////////////////////////////
+            // 下载文件
+            if (fileData == nil && [requestAddress length] != 0)
+            {
+                NSURL *url = [NSURL URLWithString:[[NSString alloc] initWithFormat:requestAddress]];
+                NSURLRequest *getRequest = [NSURLRequest requestWithURL:url
+                                                         cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                                     timeoutInterval:10.0]; 
+                fileData = [NSURLConnection sendSynchronousRequest:getRequest 
+                                                   returningResponse:nil
+                                                               error:&error];
+                [fileData writeToFile:fileName atomically:YES];
+            }
+            ///////////////////////////////////////////////////////////////////////////////
         }
-        ///////////////////////////////////////////////////////////////////////////////
         
         ///////////////////////////////////////////////////////////////////////////////
         // 解析文件至内存Hash
@@ -298,8 +307,6 @@ static NSString * genTimeStamp()
             DefaultFileParser *defaultFileParser = [[DefaultFileParser alloc] init:[internal objectForKey:@"stringHash"]];
             xmlParserCtxtPtr parserContext = xmlCreatePushParserCtxt(&_saxHandlerStruct, defaultFileParser, NULL, 0, NULL);
             xmlParseChunk(parserContext, (const char *)[fileData bytes], [fileData length], 0);
-            
-            [internal setObject:@"enable" forKey:@"stringAdd"];
         }
         ///////////////////////////////////////////////////////////////////////////////
     }
@@ -309,9 +316,9 @@ static NSString * genTimeStamp()
 {
     NSMutableDictionary *internal = (NSMutableDictionary *)[[ML sharedML] internal];
     NSString *targetLang = [internal objectForKey:@"targetLang"];
-    NSString *stringAdd = [internal objectForKey:@"stringAdd"];
+    NSString *autoAddString = [internal objectForKey:@"autoAddString"];
     
-    if (source == targetLang || [stringAdd isEqualToString:@"disable"])
+    if (source == targetLang)
     {
         return source;
     }
@@ -326,20 +333,23 @@ static NSString * genTimeStamp()
     
     if (target == nil)
     {
-        NSString *urlString = [NSString stringWithFormat:@"http://%@/api/v1/string/add", 
-                               [internal objectForKey:@"serverAddr"]];
-        NSString *timeStamp = genTimeStamp();
-        NSString *hash = genMD5([[timeStamp stringByAppendingString:apiKey] UTF8String]);
-        NSString *bodyString = [NSString stringWithFormat:@"service_name=%@&data=%@&timestamp=%@&hash=%@",
-                                serviceName, source, timeStamp, hash];
-        NSMutableURLRequest *postRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString]];
-        [postRequest setHTTPBody:[bodyString dataUsingEncoding:NSUTF8StringEncoding]];
-        [postRequest setHTTPMethod:@"POST"];
-        
-        NSURLResponse *response;
-        resultData = [NSURLConnection sendSynchronousRequest:postRequest 
-                                           returningResponse:&response 
-                                                       error:&error];
+        if ([autoAddString isEqualToString:@"ON"])
+        {
+            NSString *urlString = [NSString stringWithFormat:@"http://%@/api/v1/string/add", 
+                                   [internal objectForKey:@"serverAddr"]];
+            NSString *timeStamp = genTimeStamp();
+            NSString *hash = genMD5([[timeStamp stringByAppendingString:apiKey] UTF8String]);
+            NSString *bodyString = [NSString stringWithFormat:@"service_name=%@&data=%@&timestamp=%@&hash=%@",
+                                    serviceName, source, timeStamp, hash];
+            NSMutableURLRequest *postRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString]];
+            [postRequest setHTTPBody:[bodyString dataUsingEncoding:NSUTF8StringEncoding]];
+            [postRequest setHTTPMethod:@"POST"];
+            
+            NSURLResponse *response;
+            resultData = [NSURLConnection sendSynchronousRequest:postRequest 
+                                               returningResponse:&response 
+                                                           error:&error];
+        }
         return source;
     }
     
