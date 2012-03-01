@@ -14,11 +14,11 @@ ML IOS SDK可以帮你轻松地完成应用国际化
 使用说明
 --------
 
-## init
+### init
 
 在AppDelegate.m或其View中使用init初始化SDK
 
-### 参数说明
+#### 参数说明
 
 * serviceName  服务名称
 * apiKey  API Key
@@ -27,7 +27,7 @@ ML IOS SDK可以帮你轻松地完成应用国际化
 * autoDownloadFile  是否自动下载语言包，值为@"ON"或@"OFF"。当值为@"ON"时，本地语言包不存在或与服务器端不一致时会自动更新
 * autoAddString  是否自动添加翻译词条，值为@"ON"或@"OFF"。当值为@"ON"时，无法在本地语言包中找到翻译内容时会自动向服务器添加词条
 
-### 调用实例
+#### 调用实例
 
     #import "ML.h"
     
@@ -53,15 +53,15 @@ ML IOS SDK可以帮你轻松地完成应用国际化
 		return YES;
 	}
 
-## TRANS
+### TRANS
 
 使用TRANS对字符串进行国际化
 
-### 参数说明
+#### 参数说明
 
 * key  需要翻译的词条
 
-### 调用实例
+#### 调用实例
 
 	#import "ML.h"
 	
