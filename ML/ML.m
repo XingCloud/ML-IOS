@@ -8,143 +8,17 @@
 
 #import "ML.h"
 #import "SBJson.h"
-#import <libxml/tree.h>
 #import <CommonCrypto/CommonDigest.h>
-
-/////////////////////////////////////////////////////////////////////////////////////////////
-@interface BaseXmlParser : NSObject 
-{
-}
-
-- (void)startElementLocalName:(const xmlChar *)localname  
-                       prefix:(const xmlChar *)prefix  
-                          URI:(const xmlChar *)URI  
-                nb_namespaces:(int)nb_namespaces  
-                   namespaces:(const xmlChar **)namespaces  
-                nb_attributes:(int)nb_attributes  
-                 nb_defaulted:(int)nb_defaultedslo  
-                   attributes:(const xmlChar **)attributes;
-
-- (void)endElementLocalName:(const xmlChar *)localname  
-                     prefix:(const xmlChar *)prefix 
-                        URI:(const xmlChar *)URI; 
-
-- (void)charactersFound:(const xmlChar *)ch  
-                    len:(int)len; 
-
-@end
-
-@interface DefaultFileParser : BaseXmlParser 
-{      
-    int flag;
-    NSMutableDictionary *_stringHash;
-    NSString *_curSource;
-}
-
-- (id)init:(NSMutableDictionary *)stringHash;
-
-- (void)startElementLocalName:(const xmlChar *)localname  
-                       prefix:(const xmlChar *)prefix  
-                          URI:(const xmlChar *)URI  
-                nb_namespaces:(int)nb_namespaces  
-                   namespaces:(const xmlChar **)namespaces  
-                nb_attributes:(int)nb_attributes  
-                 nb_defaulted:(int)nb_defaultedslo  
-                   attributes:(const xmlChar **)attributes;
-
-- (void)endElementLocalName:(const xmlChar *)localname  
-                     prefix:(const xmlChar *)prefix 
-                        URI:(const xmlChar *)URI; 
-
-- (void)charactersFound:(const xmlChar *)ch  
-                    len:(int)len; 
-
-@end
 
 @interface ML()
 
 @property (strong, nonatomic) id internal;
 
 @end
-/////////////////////////////////////////////////////////////////////////////////////////////
 
 @implementation ML
 
 @synthesize internal = __internal;
-
-//3个静态方法的实现，其实是调用了参数ctx的成员方法， ctx在_parserContext初始化时传入  
-static void startElementHandler(void *ctx,  
-                                const xmlChar *localname,  
-                                const xmlChar *prefix,  
-                                const xmlChar *URI,  
-                                int nb_namespaces,  
-                                const xmlChar **namespaces,  
-                                int nb_attributes,  
-                                int nb_defaulted,  
-                                const xmlChar **attributes)  
-{  
-    [(BaseXmlParser *)ctx startElementLocalName:localname 
-                                        prefix:prefix URI:URI  
-                                 nb_namespaces:nb_namespaces  
-                                    namespaces:namespaces  
-                                 nb_attributes:nb_attributes  
-                                  nb_defaulted:nb_defaulted  
-                                    attributes:attributes];  
-}
-
-static void endElementHandler(void *ctx,  
-                              const xmlChar *localname,  
-                              const xmlChar *prefix,  
-                              const xmlChar *URI)  
-
-{  
-    [(BaseXmlParser *)ctx endElementLocalName:localname 
-                                      prefix:prefix
-                                         URI:URI];  
-}
-
-static void charactersFoundHandler(void *ctx,  
-                                   const xmlChar *ch,  
-                                   int len)  
-{  
-    [(BaseXmlParser*)ctx  
-     charactersFound:ch len:len];  
-} 
-
-static xmlSAXHandler _saxHandlerStruct = {  
-    NULL,             
-    NULL,            
-    NULL,             
-    NULL,             
-    NULL,             
-    NULL,             
-    NULL,             
-    NULL,             
-    NULL,             
-    NULL,             
-    NULL,             
-    NULL,             
-    NULL,             
-    NULL,             
-    NULL,             
-    NULL,             
-    NULL,             
-    charactersFoundHandler,  
-    NULL,             
-    NULL,             
-    NULL,             
-    NULL,             
-    NULL,             
-    NULL,             
-    NULL,             
-    NULL,             
-    NULL,             
-    XML_SAX2_MAGIC,   
-    NULL,             
-    startElementHandler,     
-    endElementHandler,       
-    NULL,             
-};
 
 - (id)init
 {
@@ -220,16 +94,14 @@ autoAddString:(NSString *)autoAddString;
         [internal setObject:targetLang forKey:@"targetLang"];
         [internal setObject:autoUpdateFile forKey:@"autoUpdateFile"];
         [internal setObject:autoAddString forKey:@"autoAddString"];
-        //[internal setObject:@"i.xingcloud.com" forKey:@"serverAddr"];
-        [internal setObject:@"10.1.4.199:2012" forKey:@"serverAddr"];
-        NSMutableDictionary *stringHash = [[NSMutableDictionary alloc] init];
-        [internal setObject:stringHash forKey:@"stringHash"];
-        [stringHash release];
+        [internal setObject:@"i.xingcloud.com" forKey:@"serverAddr"];
+        //[internal setObject:@"10.1.4.199:2012" forKey:@"serverAddr"];
         ///////////////////////////////////////////////////////////////////////////////
         
         NSError *error;
-        NSString *defaultFileName = @"xc_words.xml";
-        NSString *cacheFileName = [NSString stringWithFormat:@"xc_words_%@.xml", targetLang];
+        NSString *defaultFileName = @"xc_words.json";
+        NSString *cacheFileName = [NSString stringWithFormat:@"xc_words_%@.json", targetLang];
+        SBJsonParser *parser = [[SBJsonParser alloc] init];
         
         ///////////////////////////////////////////////////////////////////////////////
         // 读取本地文件
@@ -264,7 +136,6 @@ autoAddString:(NSString *)autoAddString;
             if (resultData != nil)
             {
                 NSString *fileInfoString = [[NSString alloc] initWithData:resultData encoding:NSUTF8StringEncoding];
-                SBJsonParser *parser = [[SBJsonParser alloc] init]; 
                 NSDictionary *fileInfo = [parser objectWithString:fileInfoString error:&error];
                 requestAddress = [[fileInfo objectForKey:@"data"] objectForKey:@"request_address"];
                 md5 = [[fileInfo objectForKey:@"data"] objectForKey:@"md5"];
@@ -303,10 +174,11 @@ autoAddString:(NSString *)autoAddString;
         ///////////////////////////////////////////////////////////////////////////////
         // 解析文件至内存Hash
         if (fileData != nil)
-        {
-            DefaultFileParser *defaultFileParser = [[DefaultFileParser alloc] init:[internal objectForKey:@"stringHash"]];
-            xmlParserCtxtPtr parserContext = xmlCreatePushParserCtxt(&_saxHandlerStruct, defaultFileParser, NULL, 0, NULL);
-            xmlParseChunk(parserContext, (const char *)[fileData bytes], [fileData length], 0);
+        {            
+            NSString *fileInfoString = [[NSString alloc] initWithData:fileData encoding:NSUTF8StringEncoding];
+            NSDictionary *stringHash = [parser objectWithString:fileInfoString error:&error];
+            [internal setObject:stringHash forKey:@"stringHash"];
+            [stringHash release];
         }
         ///////////////////////////////////////////////////////////////////////////////
     }
@@ -358,117 +230,6 @@ autoAddString:(NSString *)autoAddString;
 
 @end
 
-@implementation BaseXmlParser
 
-- (id)init
-{
-    self = [super init];
-    return self;  
-}  
-
--(void)dealloc
-{  
-    [super dealloc];  
-}  
-
-#pragma mark -- libxml handler，主要是3个回调方法 --  
-
-// 解析元素开始标记时触发，在这里取元素的属性值  
-- (void)startElementLocalName:(const xmlChar *)localname  
-                       prefix:(const xmlChar *)prefix  
-                          URI:(const xmlChar *)URI  
-                nb_namespaces:(int)nb_namespaces  
-                   namespaces:(const xmlChar **)namespaces  
-                nb_attributes:(int)nb_attributes  
-                 nb_defaulted:(int)nb_defaultedslo  
-                   attributes:(const xmlChar **)attributes  
-{    
-}
-
-// 解析元素结束标记时触发  
-- (void)endElementLocalName:(const xmlChar *)localname  
-                     prefix:(const xmlChar *)prefix 
-                        URI:(const xmlChar *)URI  
-{  
-}
-
-// 解析元素体时触发  
-- (void)charactersFound:(const xmlChar *)ch  
-                    len:(int)len  
-{  
-} 
-
-@end
-
-@implementation DefaultFileParser
-
-- (id)init:(NSMutableDictionary *)stringHash
-{  
-    if (self = [super init])
-    {  
-        _stringHash = stringHash;
-    }
-    return self;  
-}  
-
-- (void)dealloc
-{  
-    [super dealloc];  
-}   
-
-#pragma mark -- libxml handler，主要是3个回调方法--  
-
-// 解析元素开始标记时触发，在这里取元素的属性值  
-- (void)startElementLocalName:(const xmlChar *)localname  
-                       prefix:(const xmlChar *)prefix  
-                          URI:(const xmlChar *)URI  
-                nb_namespaces:(int)nb_namespaces  
-                   namespaces:(const xmlChar **)namespaces  
-                nb_attributes:(int)nb_attributes  
-                 nb_defaulted:(int)nb_defaultedslo  
-                   attributes:(const xmlChar **)attributes 
-{  
-    if (strncmp((char*)localname, "source", sizeof("source")) == 0) 
-    {  
-        flag = 1;  
-        return;  
-    }
-    
-    if (strncmp((char*)localname, "target", sizeof("target")) == 0) 
-    {  
-        flag = 2;
-        return;  
-    }  
-}
-
-// 解析元素结束标记时触发  
-- (void)endElementLocalName:(const xmlChar *)localname  
-                     prefix:(const xmlChar *)prefix 
-                        URI:(const xmlChar *)URI  
-{  
-    flag = 0;  // 标志归零  
-}
-
-//解析元素体时触发  
-- (void)charactersFound:(const xmlChar*)ch  
-                    len:(int)len  
-{  
-    // 取login_status元素体  
-    if (flag == 1) 
-    {
-        _curSource = [[NSString alloc] initWithBytes:ch length:len encoding:NSUTF8StringEncoding];   
-    }
-    
-    if (flag == 2)
-    {
-        NSString * target = [[NSString alloc] initWithBytes:ch length:len encoding:NSUTF8StringEncoding];
-        [_stringHash setObject:target forKey:_curSource];
-        [target release];
-        [_curSource release];
-        _curSource = nil;
-    }
-}
-
-@end
 
 

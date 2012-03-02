@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6D4C2CFD14FB713F00806E60 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D4C2CFC14FB713F00806E60 /* libxml2.dylib */; };
 		6D6CABAD14F762EF00284C64 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D6CABAC14F762EF00284C64 /* Foundation.framework */; };
 		6D6CABB314F762EF00284C64 /* ML.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D6CABB214F762EF00284C64 /* ML.m */; };
 		6D6CAC0F14F78D7700284C64 /* libsbjson-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D6CAC0514F78D7700284C64 /* libsbjson-ios.a */; };
@@ -23,12 +22,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		6D38EB6214FC6C0C0055DADB /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
-		6D38EB6414FC6C160055DADB /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		6D38EB6614FC6C220055DADB /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
-		6D38EB6814FC6C2E0055DADB /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		6D38EB6A14FC6C520055DADB /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
-		6D4C2CFC14FB713F00806E60 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		6D6CABA914F762EF00284C64 /* libML.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libML.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D6CABAC14F762EF00284C64 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		6D6CABB014F762EF00284C64 /* ML-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ML-Prefix.pch"; sourceTree = "<group>"; };
@@ -51,7 +44,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6D4C2CFD14FB713F00806E60 /* libxml2.dylib in Frameworks */,
 				6D6CABAD14F762EF00284C64 /* Foundation.framework in Frameworks */,
 				6D6CAC0F14F78D7700284C64 /* libsbjson-ios.a in Frameworks */,
 			);
@@ -80,12 +72,6 @@
 		6D6CABAB14F762EF00284C64 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				6D38EB6A14FC6C520055DADB /* libz.dylib */,
-				6D4C2CFC14FB713F00806E60 /* libxml2.dylib */,
-				6D38EB6814FC6C2E0055DADB /* CoreGraphics.framework */,
-				6D38EB6614FC6C220055DADB /* MobileCoreServices.framework */,
-				6D38EB6414FC6C160055DADB /* SystemConfiguration.framework */,
-				6D38EB6214FC6C0C0055DADB /* CFNetwork.framework */,
 				6D6CABAC14F762EF00284C64 /* Foundation.framework */,
 			);
 			name = Frameworks;
@@ -251,6 +237,7 @@
 				DSTROOT = /tmp/ML.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ML/ML-Prefix.pch";
+				HEADER_SEARCH_PATHS = "";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/ML\"",
@@ -267,6 +254,7 @@
 				DSTROOT = /tmp/ML.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ML/ML-Prefix.pch";
+				HEADER_SEARCH_PATHS = "";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/ML\"",
