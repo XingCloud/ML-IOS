@@ -25,7 +25,7 @@ ML IOS SDK可以帮你轻松地完成应用国际化
 * sourceLang  源语言
 * targetLang  目标语言
 * autoUpdateFile  是否自动下载语言包，值为@"ON"或@"OFF"。当值为@"ON"时，本地语言包不存在或与服务器端不一致时会自动更新
-* autoAddString  是否自动添加翻译词条，值为@"ON"或@"OFF"。当值为@"ON"时，无法在本地语言包中找到翻译内容时会自动向服务器添加词条
+* autoAddTrans  是否自动添加翻译词条，值为@"ON"或@"OFF"。当值为@"ON"时，无法在本地语言包中找到翻译内容时会自动向服务器添加词条
 
 #### 调用实例
 
@@ -45,7 +45,7 @@ ML IOS SDK可以帮你轻松地完成应用国际化
 	      sourceLang:@"cn" 
 	      targetLang:preferredLang
 	  autoUpdateFile:@"ON"
-	   autoAddString:@"ON"];
+	    autoAddTrans:@"ON"];
 		///////////////////////////////////////////////////////////////////////////////
 		
 		...
