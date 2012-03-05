@@ -62,7 +62,7 @@ static NSString * genMD5(const char *cStr)
 static NSString * genTimeStamp()
 {
     NSDate *data = [NSDate dateWithTimeIntervalSinceNow:0];
-    NSTimeInterval interval = [data timeIntervalSince1970];
+    NSTimeInterval interval = [data timeIntervalSince1970] * 1000;
     return [NSString stringWithFormat:@"%.0f", interval];
 }
 
@@ -71,7 +71,7 @@ static NSString * genTimeStamp()
   sourceLang:(NSString *)sourceLang
   targetLang:(NSString *)targetLang
 autoUpdateFile:(NSString *)autoUpdateFile
-autoAddString:(NSString *)autoAddString;
+autoAddTrans:(NSString *)autoAddTrans;
 {
     ///////////////////////////////////////////////////////////////////////////////
     // 构建数据
@@ -93,7 +93,7 @@ autoAddString:(NSString *)autoAddString;
         [internal setObject:sourceLang forKey:@"sourceLang"];
         [internal setObject:targetLang forKey:@"targetLang"];
         [internal setObject:autoUpdateFile forKey:@"autoUpdateFile"];
-        [internal setObject:autoAddString forKey:@"autoAddString"];
+        [internal setObject:autoAddTrans forKey:@"autoAddTrans"];
         [internal setObject:@"i.xingcloud.com" forKey:@"serverAddr"];
         //[internal setObject:@"10.1.4.199:2012" forKey:@"serverAddr"];
         ///////////////////////////////////////////////////////////////////////////////
@@ -188,7 +188,7 @@ autoAddString:(NSString *)autoAddString;
 {
     NSMutableDictionary *internal = (NSMutableDictionary *)[[ML sharedML] internal];
     NSString *targetLang = [internal objectForKey:@"targetLang"];
-    NSString *autoAddString = [internal objectForKey:@"autoAddString"];
+    NSString *autoAddTrans = [internal objectForKey:@"autoAddTrans"];
     
     if (source == targetLang)
     {
@@ -205,7 +205,7 @@ autoAddString:(NSString *)autoAddString;
     
     if (target == nil)
     {
-        if ([autoAddString isEqualToString:@"ON"])
+        if ([autoAddTrans isEqualToString:@"ON"])
         {
             NSString *urlString = [NSString stringWithFormat:@"http://%@/api/v1/string/add", 
                                    [internal objectForKey:@"serverAddr"]];

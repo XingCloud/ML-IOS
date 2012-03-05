@@ -18,7 +18,7 @@
   sourceLang:(NSString *)sourceLang 
   targetLang:(NSString *)targetLang 
 autoUpdateFile:(NSString *)autoUpdateFile
-autoAddString:(NSString *)autoAddString;
+autoAddTrans:(NSString *)autoAddTrans;
 
 + (NSString *)trans:(NSString *)source;
 
