@@ -115,21 +115,38 @@ autoAddTrans:(NSString *)autoAddTrans;
         {
             ///////////////////////////////////////////////////////////////////////////////
             // 获取服务器端的文件信息
+            /*
             NSString *urlString = [NSString stringWithFormat:@"http://%@/api/v1/file/info", 
                                    [internal objectForKey:@"serverAddr"]];
             NSString *timeStamp = genTimeStamp();
             NSString *hash = genMD5([[timeStamp stringByAppendingString:apiKey] UTF8String]);
-            NSString *bodyString = [NSString stringWithFormat:@"service_name=%@&lang=%@&file_path=%@&timestamp=%@&hash=%@",
+            NSString *bodyString = [NSString stringWithFormat:@"service_name=%@&locale=%@&file_path=%@&timestamp=%@&hash=%@",
                                     serviceName, targetLang, defaultFileName, timeStamp, hash];
             NSMutableURLRequest *postRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString]];
             [postRequest setHTTPBody:[bodyString dataUsingEncoding:NSUTF8StringEncoding]];
-            [postRequest setHTTPMethod:@"POST"];
+            [postRequest setHTTPMethod:@"GET"];
             
             NSData *resultData;
             NSURLResponse *response;
             resultData = [NSURLConnection sendSynchronousRequest:postRequest 
                                                        returningResponse:&response 
                                                                    error:&error];
+            */
+            
+            NSURLRequest *getRequest;
+            NSURL *url;
+            
+            NSString *timeStamp = genTimeStamp();
+            NSString *hash = genMD5([[timeStamp stringByAppendingString:apiKey] UTF8String]);
+            url = [NSURL URLWithString:[[NSString alloc] initWithFormat:@"http://%@/api/v1/file/info?service_name=%@&locale=%@&file_path=%@&timestamp=%@&hash=%@", [internal objectForKey:@"serverAddr"], serviceName, targetLang, defaultFileName, timeStamp, hash]];
+            getRequest = [NSURLRequest requestWithURL:url
+                                          cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                      timeoutInterval:10.0];
+            
+            NSData *resultData;
+            resultData = [NSURLConnection sendSynchronousRequest:getRequest
+                                               returningResponse:nil
+                                                           error:&error];
             
             NSString *requestAddress = nil;
             NSString *md5 = nil;
@@ -159,10 +176,10 @@ autoAddTrans:(NSString *)autoAddTrans;
             // 下载文件
             if (fileData == nil && [requestAddress length] != 0)
             {
-                NSURL *url = [NSURL URLWithString:[[NSString alloc] initWithFormat:requestAddress]];
-                NSURLRequest *getRequest = [NSURLRequest requestWithURL:url
-                                                         cachePolicy:NSURLRequestUseProtocolCachePolicy
-                                                     timeoutInterval:10.0]; 
+                url = [NSURL URLWithString:[[NSString alloc] initWithFormat:requestAddress]];
+                getRequest = [NSURLRequest requestWithURL:url
+                                              cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                          timeoutInterval:10.0]; 
                 fileData = [NSURLConnection sendSynchronousRequest:getRequest 
                                                    returningResponse:nil
                                                                error:&error];
